@@ -1,23 +1,20 @@
 import { createClient } from "contentful";
-import { Fields } from "../types";
+import type { Event } from "../types";
 
 const space = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID as string;
 const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN as string;
+const entryId = process.env.NEXT_PUBLIC_CONTENTFUL_ENTRY_ID as string;
 
 const client = createClient({
   space: space,
   accessToken: accessToken,
 });
 
-export async function fetchEntries() {
+export const fetchEntry = async () => {
   try {
-    const entries = await client.getEntries<Fields>();
-    if (entries.items) {
-      return [entries.items, null];
-    } else {
-      throw new Error("items not found");
-    }
+    const event = await client.getEntry<Event>(entryId);
+    return [event as unknown as Event, null];
   } catch (error) {
-    return [null, error as any];
+    return [null, error as unknown as Error];
   }
-}
+};
