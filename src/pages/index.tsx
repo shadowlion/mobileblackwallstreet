@@ -28,11 +28,13 @@ const Home = ({ event }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
       <header></header>
 
-      <main>
-        <Image src={LogoImage} alt="Mobile Black Wallstreet Logo" />
-        <p>{eventName}</p>
-        <p>Starts: {timeStart}</p>
-        <address>{documentToReactComponents(location as Document)}</address>
+      <main className="flex justify-center items-center h-screen">
+        <div className="text-center">
+          <Image src={LogoImage} alt="Mobile Black Wallstreet Logo" />
+          <p>Starts: {timeStart}</p>
+          <p>{eventName}</p>
+          <address>{documentToReactComponents(location as Document)}</address>
+        </div>
       </main>
 
       <footer></footer>
