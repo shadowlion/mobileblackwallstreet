@@ -1,10 +1,10 @@
-export interface Entry {
+export interface Event {
   metadata: Metadata;
   sys: EventSys;
-  fields: Fields;
+  fields: EventFields;
 }
 
-export interface Fields {
+export interface EventFields {
   eventName: string;
   timeStart: string;
   timeEnd: string;

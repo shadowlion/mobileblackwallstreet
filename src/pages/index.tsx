@@ -2,22 +2,22 @@ import type { InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import LogoImage from "../../public/logo.webp";
-import { fetchEntries } from "../lib/contentful";
+import { fetchEntry } from "../lib/contentful";
+import type { Event } from "../types";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { Document } from "@contentful/rich-text-types";
 
 export const getStaticProps = async () => {
-  const [events, error] = await fetchEntries();
-  if (error) {
-    throw new Error(error);
-  }
-  console.log(events);
+  const [event, error] = await fetchEntry();
   return {
     props: {
-      events,
+      event: (event as Event).fields,
     },
   };
 };
 
-const Home = ({ events }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home = ({ event }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { eventName, timeStart, location } = event;
   return (
     <div>
       <Head>
@@ -30,7 +30,9 @@ const Home = ({ events }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
       <main>
         <Image src={LogoImage} alt="Mobile Black Wallstreet Logo" />
-        <p>{JSON.stringify(events)}</p>
+        <p>{eventName}</p>
+        <p>Starts: {timeStart}</p>
+        <address>{documentToReactComponents(location as Document)}</address>
       </main>
 
       <footer></footer>
