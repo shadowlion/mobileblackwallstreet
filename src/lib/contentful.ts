@@ -10,7 +10,7 @@ const client = createClient({
   accessToken: accessToken,
 });
 
-export const fetchEntry = async () => {
+export const fetchEntry = async (): Promise<[Event, null] | [null, Error]> => {
   try {
     const event = await client.getEntry<Event>(entryId);
     return [event as unknown as Event, null];
