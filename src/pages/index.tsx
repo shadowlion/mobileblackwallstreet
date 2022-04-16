@@ -20,7 +20,7 @@ export const getStaticProps = async () => {
 };
 
 const Home = ({ event }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { eventName, timeStart, location, formLink } = event;
+  const { eventName, timeStart, location, formLink, map } = event;
   return (
     <Fragment>
       <Head>
@@ -29,7 +29,7 @@ const Home = ({ event }: InferGetStaticPropsType<typeof getStaticProps>) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header>
-        <Navbar formLink={formLink} />
+        <Navbar formLink={formLink} mapLink={map} />
       </header>
       <main>
         <div className="flex justify-center items-center h-5/6 text-center">
